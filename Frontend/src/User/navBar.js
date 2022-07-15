@@ -3,7 +3,7 @@ import { AppBar, Toolbar, IconButton, Typography, Stack, Button} from '@mui/mate
 import {Link} from 'react-router-dom'
 import SanitizerIcon from '@mui/icons-material/Sanitizer';
 
-export const UserNavBar = () => {
+export const UserNavBar = (props) => {
   return (
     <AppBar position='static'>
       <Toolbar>
@@ -13,7 +13,7 @@ export const UserNavBar = () => {
         <Typography variant='h6' component='div' sx={{flexGrow: 1}}>
           Covid App
         </Typography>
-        <Stack direction='row' spacing={2}>
+        {(props.auth)?<Stack direction='row' spacing={2}>
           <Button color='inherit' component={Link} to='/'>Home</Button>
           <Button color='inherit' component={Link} to='/search-interest-points'>Interest Points</Button>
           <Button color='inherit' component={Link} to='/register-visit'>Register Visit</Button>
@@ -21,6 +21,10 @@ export const UserNavBar = () => {
           <Button color='inherit' component={Link} to='/contact-case'>Contact Case</Button>
           <Button color='inherit' component={Link} to='/profile'>Profile</Button>
         </Stack>
+        :<Stack direction='row' spacing={2}>
+        <Button color='inherit' component={Link} to='/sign-up'>Sing up</Button>
+        <Button color='inherit' component={Link} to='/sign-in'>Sign in</Button>
+      </Stack>}
       </Toolbar>
     </AppBar>
   );
