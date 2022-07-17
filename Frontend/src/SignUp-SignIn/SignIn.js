@@ -7,16 +7,30 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import $ from 'jquery';
 
 
 export const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const singInData = {
       email: data.get('email'),
       password: data.get('password'),
-    });
+    };
+    $.ajax({
+      url : "http://localhost/WEB_Project2022/Backend/server.php",
+      type: "POST",
+      data : singInData,
+      success: function(data, textStatus, jqXHR)
+      {
+          console.log(data)
+      },
+      error: function (jqXHR, textStatus, errorThrown)
+      {
+          console.log(errorThrown)
+      }
+  });
   };
 
   return (
