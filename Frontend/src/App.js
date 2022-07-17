@@ -4,12 +4,11 @@ import {SignUp} from './SignUp-SignIn/SignUp.js'
 import { SignIn } from './SignUp-SignIn/SignIn';
 import { NotFound } from './404/Code404';
 
-const auth= true;
+const auth= false;
 
 function App() {
   return (
     <>
- 
       <BrowserRouter>
       <UserNavBar auth={auth}/>
       {(auth)?
