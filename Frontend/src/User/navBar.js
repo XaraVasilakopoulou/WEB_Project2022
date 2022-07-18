@@ -11,7 +11,7 @@ export const UserNavBar = (props) => {
           <SanitizerIcon/>
         </IconButton>
         <Typography variant='h6' component='div' sx={{flexGrow: 1}}>
-          Covid App
+          Quarantine
         </Typography>
         {(props.auth)?<Stack direction='row' spacing={2}>
           <Button color='inherit' component={Link} to='/'>Home</Button>
