@@ -4,22 +4,22 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-const mysql = require('mysql');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var userLogin = require('./routes/userLogIn')
 
+const mariadb = require('mariadb');
 var app = express();
 
-//MySql
-const pool  = mysql.createPool({
+const connection  = mariadb.createPool({
   connectionLimit : 10,
   host            : 'localhost',
   user            : 'root',
   password        : '',
-  database        : 'web2021-2022'
+  database        : 'web20212022'
 })
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -52,23 +52,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.get('/usersData', (req, res) => {
-  pool.getConnection((err, connection) => {
-      if(err) throw err
-      console.log('connected as id ' + connection.threadId)
-      connection.query('SELECT * from users', (err, rows) => {
-          connection.release()
-
-          if (!err) {
-              res.send(rows)
-          } else {
-              console.log(err)
-          }
-
-          // if(err) throw err
-          console.log('The data from beer table are: \n', rows)
-      })
-  })
-})
 
 module.exports = app;
