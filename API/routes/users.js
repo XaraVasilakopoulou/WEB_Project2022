@@ -6,7 +6,7 @@ const connection  = mysql.createConnection({
   connectionLimit : 10,
   host            : 'localhost',
   user            : 'root',
-  database        : 'web20212022'
+  database        : 'project_web'
 })
 
 connection.connect((err)=>{
@@ -19,22 +19,14 @@ connection.connect((err)=>{
 /* GET users listing. */
 
 router.get('/', (req, res) => {
-  pool.getConnection((err, connection) => {
-      if(err) throw err
-      console.log('connected as id ' + connection.threadId)
-      connection.query('SELECT * from web20212022.users', (err, rows) => {
-          connection.release()
-
-          if (!err) {
-              res.send(rows)
-          } else {
-              console.log(err)
-          }
-
-          // if(err) throw err
-          console.log('The data from beer table are: \n', rows)
-      })
-  })
+  connection.connect(function(err) {
+   
+    connection.query("SELECT * FROM users", function (err, result, fields) {
+      if (err) throw err;
+      console.log(result);
+      res.json(result);
+    });
+  });
 })
 
 module.exports = router;

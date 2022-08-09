@@ -17,7 +17,7 @@ const connection  = mariadb.createPool({
   host            : 'localhost',
   user            : 'root',
   password        : '',
-  database        : 'web20212022'
+  database        : 'project_web'
 })
 
 
