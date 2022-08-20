@@ -3,6 +3,7 @@ import {UserNavBar} from './User/navBar'
 import {SignUp} from './SignUp-SignIn/SignUp.js'
 import { SignIn } from './SignUp-SignIn/SignIn';
 import { NotFound } from './404/Code404';
+import { Map } from './User/Map';
 
 const auth= true;
 
@@ -14,7 +15,7 @@ function App() {
       {(auth)?
       <Routes>
         <Route path='/' element={<></>}/>
-        <Route path='/search-interest-points' element={<></>}/>
+        <Route path='/search-interest-points' element={<Map/>}/>
         <Route path='/register-visit' element={<></>}/>
         <Route path='/case-report' element={<></>}/>
         <Route path='/contact-case' element={<></>}/>
