@@ -6,15 +6,43 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import validator from 'validator'
+import $ from 'jquery';
 
 export const SignUp = () => {
   const handleSubmit = (event) => {
+    var passValues = true;
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    if(!validator.isStrongPassword(data.get('password'),{minLength: 8,minUppercase: 1, minNumbers: 1, minSymbols: 1})){
+      console.log('Password must contain at least one uppercase letter, one number and one symbol. The minimum length must be 8 characters.')
+      passValues = false;
+    }
+    if(!validator.isEmail(data.get('email'))){
+      console.log('Email is not valid.')
+      passValues = false
+    }
+    if(passValues){
+      const signUpData = {
+        email: data.get('email'), 
+        username: data.get('username'),
+        password: data.get('password')
+      }
+      $.ajax({
+        url : "http://localhost/userSignUp",
+        type: "POST",
+        data : signUpData,
+        success: function(data, textStatus, jqXHR)
+        {
+            console.log(data)
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            console.log(errorThrown)
+        }
+      }
+      )
+    }
   };
 
   return (

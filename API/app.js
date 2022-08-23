@@ -8,6 +8,7 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var userLogin = require('./routes/userLogIn')
+var userSignUp = require('./routes/userSignUp')
 
 const mariadb = require('mariadb');
 var app = express();
@@ -35,6 +36,7 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/userLogin', userLogin);
+app.use('/userSignUp', userSignUp);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

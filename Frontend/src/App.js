@@ -5,7 +5,7 @@ import { SignIn } from './SignUp-SignIn/SignIn';
 import { NotFound } from './404/Code404';
 import { Map } from './User/Map';
 
-const auth= true;
+const auth= false;
 
 function App() {
   return (
