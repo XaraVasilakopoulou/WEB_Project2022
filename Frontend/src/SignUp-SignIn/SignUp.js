@@ -32,6 +32,7 @@ export const SignUp = () => {
         url : "localhost:9000/userSignUp",
         type: "POST",
         crossDomain: true,
+        dataType: 'jsonp',
         data : signUpData,
         success: function(data, textStatus, jqXHR)
         {

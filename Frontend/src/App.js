@@ -4,10 +4,20 @@ import {SignUp} from './SignUp-SignIn/SignUp.js'
 import { SignIn } from './SignUp-SignIn/SignIn';
 import { NotFound } from './404/Code404';
 //import { Map } from './User/Map';
+import $ from 'jquery';
 
 const auth= false;
 
 function App() {
+  $.ajax({
+    url: "http://localhost:9000/user",
+    type: 'GET',
+    dataType: 'jsonp', // added data type
+    success: function(res) {
+        console.log(res);
+        alert(res);
+    }
+});
   return (
     <>
       <BrowserRouter>

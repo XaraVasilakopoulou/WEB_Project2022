@@ -19,8 +19,9 @@ export const SignIn = () => {
       password: data.get('password'),
     };
     $.ajax({
-      url : "http://localhost/WEB_Project2022/Backend/server.php",
+      url : "localhost:9000/userSignIn",
       type: "POST",
+      dataType: 'jsonp',
       data : singInData,
       success: function(data, textStatus, jqXHR)
       {
