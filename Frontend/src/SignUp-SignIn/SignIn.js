@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import $ from 'jquery';
 
 
-export const SignIn = () => {
+export const SignIn = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -18,6 +18,9 @@ export const SignIn = () => {
       email: data.get('email'),
       password: data.get('password'),
     };
+    
+    props.onLog(true)
+    
     $.ajax({
       url : "localhost:9000/userSignIn",
       type: "POST",

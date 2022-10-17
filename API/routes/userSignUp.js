@@ -1,19 +1,15 @@
 var express = require('express');
 var router = express.Router();
-const mysql = require('mysql');
+const mariadb = require('mariadb');
 
-const connection  = mysql.createConnection({
+const connection  = mariadb.createConnection({
   connectionLimit : 10,
   host            : 'localhost',
   user            : 'root',
+  password        : '',
   database        : 'project_web'
 })
 
-connection.connect((err)=>{
-  if(err){
-    throw err;
-  }
-});
 
 /* POST user insert. */
 
