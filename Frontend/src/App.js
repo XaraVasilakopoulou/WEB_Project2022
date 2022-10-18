@@ -3,6 +3,8 @@ import {UserNavBar} from './User/navBar'
 import {SignUp} from './SignUp-SignIn/SignUp.js'
 import { SignIn } from './SignUp-SignIn/SignIn';
 import { NotFound } from './404/Code404';
+import { Profile } from './User/Profile';
+import { Col, Space } from 'antd';
 //import { Map } from './User/Map';
 import $ from 'jquery';
 import { useState } from 'react';
@@ -33,7 +35,7 @@ function App() {
         <Route path='/register-visit' element={<></>}/>
         <Route path='/case-report' element={<></>}/>
         <Route path='/contact-case' element={<></>}/>
-        <Route path='/profile' element={<></>}/>
+        <Route path='/profile' element={<Profile/>}/>
         <Route path='/*' element={<NotFound/>}/>
         </>}
       </Routes>
@@ -43,7 +45,7 @@ function App() {
         <Route path='/sign-in' element={<SignIn onLog={(val)=>{setLoggedIn(val); setAuth(val); console.log('hi',val)}}/>}/>
         <Route path='/*' element={<SignIn onLog={(val)=>{setLoggedIn(val); setAuth(val); console.log('hi',val)}}/>}/>
       </Routes>
-      }
+      } 
       </BrowserRouter>
     </>
   );
