@@ -5,7 +5,7 @@ import './Map.css'
 export const Map = ()=> {
         
 return (
-<MapContainer center={[38.24, 21.73]} zoom={13} scrollWheelZoom={true}>
+<MapContainer style={{height:'700px'}} center={[38.24, 21.73]} zoom={13} scrollWheelZoom={true}>
   <TileLayer
     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

@@ -4,11 +4,13 @@ import {SignUp} from './SignUp-SignIn/SignUp.js'
 import { SignIn } from './SignUp-SignIn/SignIn';
 import { NotFound } from './404/Code404';
 import { Profile } from './User/Profile';
-import { Col, Space } from 'antd';
-//import { Map } from './User/Map';
+import { Layout, Space, Breadcrumb } from 'antd';
+import { Map } from './User/Map';
 import $ from 'jquery';
 import { useState } from 'react';
+import './index.css'
 
+const { Header, Content, Footer } = Layout;
 
 function App() {
   const [loggedIn , setLoggedIn ] = useState(false)
@@ -25,12 +27,16 @@ function App() {
   return (
     <>
       <BrowserRouter>
-      <UserNavBar auth={auth}/>
+      <Header>
+        <UserNavBar auth={auth}/>
+      </Header>
+      <Content style={{ padding: '10px 120px' }}>
+      <div className="site-layout-content">
       {(auth)?
       <Routes>
         {loggedIn ?<><Navigate to="/" /> {setLoggedIn(false)}</> : 
         <>
-        <Route path='/' element={<></>}/>
+        <Route path='/' element={<Map/>}/>
         <Route path='/search-interest-points' element={<></>}/>
         <Route path='/register-visit' element={<></>}/>
         <Route path='/case-report' element={<></>}/>
@@ -46,6 +52,8 @@ function App() {
         <Route path='/*' element={<SignIn onLog={(val)=>{setLoggedIn(val); setAuth(val); console.log('hi',val)}}/>}/>
       </Routes>
       } 
+      </div>
+      </Content>
       </BrowserRouter>
     </>
   );

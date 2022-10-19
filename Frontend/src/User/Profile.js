@@ -1,9 +1,21 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { Button, Form, Input, Space, Col } from 'antd';
+import { Button, Form, Input, Space, Col, Table, Row } from 'antd';
 
 
-
+const col = [
+  {
+    title: 'Date',
+    dataIndex: 'date',
+    key: 'date',
+  },
+  {
+    title: 'Type',
+    dataIndex: 'type',
+    key: 'type',
+  },
+  
+]
 
 export const Profile = () => {
   const onFinish = (values) => {
@@ -12,15 +24,14 @@ export const Profile = () => {
 
   return (
     <>
-    <Col offset={6} span={20}>
-      <Space size='large' direction="vertical">
+    <Col offset={4} span={15}>
         <h2>Change Profile Data</h2>
           <Form  name="nest-messages" onFinish={onFinish} >
-          <Form.Item rules={[{ required: true }]}>
+          <Form.Item >
               <Input placeholder='Username'/>
           </Form.Item>
-          <Form.Item rules={[{ type: 'email' }]}>
-              <Input placeholder='Email'/>
+          <Form.Item >
+              <Input placeholder='Password' type='password'/>
           </Form.Item>
           <Form.Item >
               <Button type="primary" htmlType="submit">
@@ -28,7 +39,9 @@ export const Profile = () => {
               </Button>
           </Form.Item>
           </Form>
-        </Space>
+          <Form>
+            <Table columns={col}/>
+          </Form>
     </Col>
     </>
   );
