@@ -21,21 +21,21 @@ export const SignIn = (props) => {
     
     props.onLog(true)
     
-    $.ajax({
-      url : "localhost:9000/userSignIn",
-      type: "POST",
-      dataType: 'jsonp',
-      data : singInData,
-      success: function(data, textStatus, jqXHR)
-      {
-          console.log(data)
-      },
-      error: function (jqXHR, textStatus, errorThrown)
-      {
-          console.log(errorThrown)
-      }
+    fetch("http://localhost:9000/userLogin",{
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(singInData)
+  }).then((response) => response.json())
+  .then((data) => {
+    console.log('Success:', data);
+  })
+  .catch((error) => {
+    console.error('Error:', error);
   });
-  };
+}
 
   return (
       <Container component="main" maxWidth="xs">

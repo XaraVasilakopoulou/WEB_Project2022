@@ -15,7 +15,12 @@ const { Header, Content, Footer } = Layout;
 function App() {
   const [loggedIn , setLoggedIn ] = useState(false)
   const [auth, setAuth]= useState(false);
-  $.ajax({
+
+  fetch('http://localhost:9000/users')
+  .then((response) => response.json())
+  .then((data) => console.log(data));
+
+  /*$.ajax({
     url: "http://localhost:9000/user",
     type: 'GET',
     dataType: 'jsonp', // added data type
@@ -23,7 +28,8 @@ function App() {
         console.log(res);
         alert(res);
     }
-});
+});*/
+
   return (
     <>
       <BrowserRouter>
@@ -49,7 +55,7 @@ function App() {
       <Routes>
         <Route path='/sign-up' element={<SignUp/>}/>
         <Route path='/sign-in' element={<SignIn onLog={(val)=>{setLoggedIn(val); setAuth(val); console.log('hi',val)}}/>}/>
-        <Route path='/*' element={<SignIn onLog={(val)=>{setLoggedIn(val); setAuth(val); console.log('hi',val)}}/>}/>
+        <Route path='/*' element={<SignIn onLog={(val)=>{setLoggedIn(val); setAuth(val);}}/>}/>
       </Routes>
       } 
       </div>
