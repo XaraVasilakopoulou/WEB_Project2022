@@ -1,14 +1,22 @@
 import React from 'react';
 import {Link} from 'react-router-dom'
-import { Menu } from 'antd';
+import { Button, Menu } from 'antd';
 import './navBar.css'
 
 export const UserNavBar = (props) => {
   return(
   <>
-  <div className="logo" > 
+    <div className="logo" /> 
 
-  </div>
+    {(props.auth)?
+      <div className="logOut" > 
+        <Button type='primary' onClick={()=>{props.logOut()}}>
+          Log out
+        </Button>
+      </div>:
+      <></>
+    }
+    
   <Menu
         theme="dark"
         mode="horizontal"

@@ -19,7 +19,7 @@ function App() {
     <>
       <BrowserRouter>
       <Header>
-        <UserNavBar auth={auth}/>
+        <UserNavBar auth={auth} logOut = {()=>{setLoggedIn(false); setAuth(false);}}/>
       </Header>
       <Content style={{ padding: '10px 120px' }}>
       <div className="site-layout-content">
