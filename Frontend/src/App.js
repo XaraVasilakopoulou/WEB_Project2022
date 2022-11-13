@@ -4,28 +4,16 @@ import {SignUp} from './SignUp-SignIn/SignUp.js'
 import { SignIn } from './SignUp-SignIn/SignIn';
 import { NotFound } from './404/Code404';
 import { Profile } from './User/Profile';
-import { Layout, Space, Breadcrumb } from 'antd';
+import { Layout } from 'antd';
 import { Map } from './User/Map';
-import $ from 'jquery';
 import { useState } from 'react';
 import './index.css'
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 function App() {
   const [loggedIn , setLoggedIn ] = useState(false)
   const [auth, setAuth]= useState(false);
-
-
-  /*$.ajax({
-    url: "http://localhost:9000/user",
-    type: 'GET',
-    dataType: 'jsonp', // added data type
-    success: function(res) {
-        console.log(res);
-        alert(res);
-    }
-});*/
 
   return (
     <>

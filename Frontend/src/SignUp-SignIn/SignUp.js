@@ -6,44 +6,44 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-//import validator from 'validator'
-import $ from 'jquery';
+import validator from 'validator'
+import { message } from 'antd';
 
 export const SignUp = () => {
   const handleSubmit = (event) => {
     var passValues = true;
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-   /* if(!validator.isStrongPassword(data.get('password'),{minLength: 8,minUppercase: 1, minNumbers: 1, minSymbols: 1})){
-      console.log('Password must contain at least one uppercase letter, one number and one symbol. The minimum length must be 8 characters.')
+    if(!validator.isStrongPassword(data.get('password'),{minLength: 8,minUppercase: 1, minNumbers: 1, minSymbols: 1})){
+      message.error('Password must contain at least one uppercase letter, one number and one symbol. The minimum length must be 8 characters.')
       passValues = false;
     }
     if(!validator.isEmail(data.get('email'))){
-      console.log('Email is not valid.')
+      message.error('Email is not valid.')
       passValues = false
-    }*/
+    }
     if(passValues){
       const signUpData = {
         email: data.get('email'), 
         username: data.get('username'),
         password: data.get('password')
       }
-      $.ajax({
-        url : "localhost:9000/userSignUp",
-        type: "POST",
-        crossDomain: true,
-        dataType: 'jsonp',
-        data : signUpData,
-        success: function(data, textStatus, jqXHR)
-        {
-            console.log(data)
+
+      fetch("http://localhost:9000/userSignUp",{
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
         },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            console.log(errorThrown)
-        }
-      }
+        body: JSON.stringify(signUpData)
+      }).then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+        message.success("Successful create of the account")}
       )
+      .catch((error) => {
+        console.error('Error:', error);
+      });
     }
   };
 
