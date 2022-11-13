@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import $ from 'jquery';
+import { message } from 'antd';
 
 
 export const SignIn = (props) => {
@@ -19,8 +20,6 @@ export const SignIn = (props) => {
       password: data.get('password'),
     };
     
-    props.onLog(true)
-    
     fetch("http://localhost:9000/userLogin",{
     method: 'POST',
     headers: {
@@ -30,7 +29,11 @@ export const SignIn = (props) => {
     body: JSON.stringify(singInData)
   }).then((response) => response.json())
   .then((data) => {
-    console.log('Success:', data);
+    if(data){props.onLog(data)}
+    else{
+      props.onLog(data);
+      message.error('Wrong Email or Password')
+    }
   })
   .catch((error) => {
     console.error('Error:', error);

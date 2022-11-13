@@ -16,9 +16,6 @@ function App() {
   const [loggedIn , setLoggedIn ] = useState(false)
   const [auth, setAuth]= useState(false);
 
-  fetch('http://localhost:9000/users')
-  .then((response) => response.json())
-  .then((data) => console.log(data));
 
   /*$.ajax({
     url: "http://localhost:9000/user",

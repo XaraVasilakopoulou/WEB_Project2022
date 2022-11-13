@@ -5,14 +5,18 @@ var connection = require('../DataBase')
 /* POST login data. */
 
 router.post('/', (req, res) => {
-    let stmt = `INSERT INTO users (username, email, password) VALUES (?, ?, ?)`;
-    let user = [req.data.username, req.data.email, req.data.password]
-   console.log(req,res)
-    /*connection.query(stmt, user, function (err, result, fields) {
+    let stmt = "SELECT COUNT(*) as userexists FROM users WHERE email = ? AND password = ?";
+    let user = [req.body.email, req.body.password]
+
+    connection.query(stmt, user, function (err, result) {
       if (err) throw err;
-      console.log(result);
-      res.json(result);
-    });*/
+      if(result[0].userexists === 1){
+        res.json(true);
+      }
+      else{
+        res.json(false);
+      }
+    });
 })
 
 module.exports = router;
