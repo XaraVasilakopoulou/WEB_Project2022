@@ -22,7 +22,7 @@ export const UserNavBar = (props) => {
         mode="horizontal"
         defaultSelectedKeys={['0']}
   > 
-  {(props.auth)?
+  {(props.auth)?(props.user)?
   <>
     <Menu.Item key={0}>
       <Link to='/'>Home</Link>
@@ -42,6 +42,8 @@ export const UserNavBar = (props) => {
     <Menu.Item key={5}>
       <Link to='/profile'>Profile</Link>
     </Menu.Item>
+    </>:
+    <>
     </>
     :
     <>

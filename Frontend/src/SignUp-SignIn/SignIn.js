@@ -7,7 +7,6 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import $ from 'jquery';
 import { message } from 'antd';
 
 
@@ -29,9 +28,13 @@ export const SignIn = (props) => {
     body: JSON.stringify(singInData)
   }).then((response) => response.json())
   .then((data) => {
-    if(data){props.onLog(data)}
+    if(data.login){
+      if(data.user === 'user'){props.onLog(data.login,true);}
+      else{
+        props.onLog(data.login,false);
+      } }
     else{
-      props.onLog(data);
+      props.onLog(data.login,null);
       message.error('Wrong Email or Password')
     }
   })

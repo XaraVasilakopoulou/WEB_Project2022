@@ -14,12 +14,13 @@ const { Header, Content } = Layout;
 function App() {
   const [loggedIn , setLoggedIn ] = useState(false)
   const [auth, setAuth]= useState(false);
+  const [isUser, setIsUser]= useState(false);
 
   return (
     <>
       <BrowserRouter>
       <Header>
-        <UserNavBar auth={auth} logOut = {()=>{setLoggedIn(false); setAuth(false);}}/>
+        <UserNavBar user={isUser} auth={auth} logOut = {()=>{setLoggedIn(false); setAuth(false);}}/>
       </Header>
       <Content style={{ padding: '10px 120px' }}>
       <div className="site-layout-content">
@@ -39,8 +40,8 @@ function App() {
       :
       <Routes>
         <Route path='/sign-up' element={<SignUp/>}/>
-        <Route path='/sign-in' element={<SignIn onLog={(val)=>{setLoggedIn(val); setAuth(val); console.log('hi',val)}}/>}/>
-        <Route path='/*' element={<SignIn onLog={(val)=>{setLoggedIn(val); setAuth(val);}}/>}/>
+        <Route path='/sign-in' element={<SignIn onLog={(val,isUser)=>{setLoggedIn(val); setAuth(val); setIsUser(isUser); }}/>}/>
+        <Route path='/*' element={<SignIn onLog={(val,isUser)=>{setLoggedIn(val); setAuth(val); setIsUser(isUser);}}/>}/>
       </Routes>
       } 
       </div>
