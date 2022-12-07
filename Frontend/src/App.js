@@ -15,6 +15,7 @@ function App() {
   const [loggedIn , setLoggedIn ] = useState(false)
   const [auth, setAuth]= useState(false);
   const [isUser, setIsUser]= useState(false);
+  const [email, setEmail]= useState(null);
 
   return (
     <>
@@ -33,15 +34,15 @@ function App() {
         <Route path='/register-visit' element={<></>}/>
         <Route path='/case-report' element={<></>}/>
         <Route path='/contact-case' element={<></>}/>
-        <Route path='/profile' element={<Profile/>}/>
+        <Route path='/profile' element={<Profile email ={email}/>}/>
         <Route path='/*' element={<NotFound/>}/>
         </>}
       </Routes>
       :
       <Routes>
         <Route path='/sign-up' element={<SignUp/>}/>
-        <Route path='/sign-in' element={<SignIn onLog={(val,isUser)=>{setLoggedIn(val); setAuth(val); setIsUser(isUser); }}/>}/>
-        <Route path='/*' element={<SignIn onLog={(val,isUser)=>{setLoggedIn(val); setAuth(val); setIsUser(isUser);}}/>}/>
+        <Route path='/sign-in' element={<SignIn onLog={(val,isUser,email)=>{setLoggedIn(val); setAuth(val); setIsUser(isUser); setEmail(email) }}/>}/>
+        <Route path='/*' element={<SignIn onLog={(val,isUser,email)=>{setLoggedIn(val); setAuth(val); setIsUser(isUser); setEmail(email)}}/>}/>
       </Routes>
       } 
       </div>
