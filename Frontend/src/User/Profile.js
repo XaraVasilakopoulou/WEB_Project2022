@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import 'antd/dist/antd.css';
-import { Button, Form, Input, Space, Col, Table, Row } from 'antd';
+import { Button, Form, Input, Space, Col, Table, Row, message } from 'antd';
 
 
 const col = [
@@ -18,23 +18,51 @@ const col = [
 ]
 
 export const Profile = () => {
-  const onFinish = (values) => {
-    console.log(values);
+  const [username,setUsername] = useState();
+  const [password, setPassword] = useState();
+  const [isUsernameChanged,setIsUsernamneChanged] = useState(false);
+  const [isPasswordChanged,setIsPasswordChanged] = useState(false);
+
+  const onFinish = () => {
+
+    var postData = {
+      username: username, 
+      password: password, 
+      isUsernameChanged: isUsernameChanged, 
+      isPasswordChanged: isPasswordChanged
+    }
+
+    fetch("http://localhost:9000/profile",{
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+      }).then((response) => response.json(response))
+      .then((data) => {
+        console.log(data)
+        message.success("Successful Update of account")}
+      )
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   };
+
 
   return (
     <>
     <Col offset={4} span={15}>
         <h2>Change Profile Data</h2>
-          <Form  name="nest-messages" onFinish={onFinish} >
+          <Form>
           <Form.Item >
-              <Input placeholder='Username'/>
+              <Input placeholder='Username' onChange={(val)=>{ setUsername(val.target.value); setIsUsernamneChanged(true)}}/>
           </Form.Item>
           <Form.Item >
-              <Input placeholder='Password' type='password'/>
+              <Input placeholder='Password' type='password' onChange={(val)=>{setPassword(val.target.value); setIsPasswordChanged(true)}}/>
           </Form.Item>
           <Form.Item >
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" onClick={()=>{onFinish()}}>
               Submit
               </Button>
           </Form.Item>

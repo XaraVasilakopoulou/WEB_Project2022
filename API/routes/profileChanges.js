@@ -6,16 +6,30 @@ var connection = require('../DataBase')
 
 /* GET users listing. */
 
-router.get('/', (req, res) => {
-    let stmt = "UPDATE users SET username = ?, password= ? WHERE email = ?";
-    let user = [req.body.username, req.body.password]
+router.post('/', (req, res) => {
+    let stmtUsername = "UPDATE users SET username = ? WHERE email = ?";
+    let stmtPassword = "UPDATE users SET password= ? WHERE email = ?";
+
+    let username = [req.body.username, req.body.email]
+    let password = [req.body.password, req.body.email]
    
-    connection.query(stmt, user, function (err, result, fields) {
-      if (err) throw err;
-      console.log("1 record inserted");
-      console.log(result);
-      res.json(result);
-  });
+    if(req.body.isUsernameChanged){
+      connection.query(stmtUsername, username, function (err, result, fields) {
+        if (err) throw err;
+        console.log("1 record inserted");
+        console.log(result);
+        res.json(result);
+      });
+    }
+
+    /*if(req.body.isUsernameChanged){
+      connection.query(stmtPassword, password, function (err, result, fields) {
+        if (err) throw err;
+        console.log("1 record inserted");
+        console.log(result);
+        res.json(result);
+      });
+    }*/
 })
 
 module.exports = router;

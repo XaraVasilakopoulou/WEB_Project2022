@@ -29,9 +29,9 @@ export const SignIn = (props) => {
   }).then((response) => response.json())
   .then((data) => {
     if(data.login){
-      if(data.user === 'user'){props.onLog(data.login,true);}
+      if(data.user === 'user'){props.onLog(data.login,true,data.email);}
       else{
-        props.onLog(data.login,false);
+        props.onLog(data.login,false,data.email);
       } }
     else{
       props.onLog(data.login,null);
