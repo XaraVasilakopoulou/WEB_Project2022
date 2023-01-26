@@ -37,13 +37,25 @@ export const UserNavBar = (props) => {
       <Link to='/case-report'>Case Report</Link>
     </Menu.Item>
     <Menu.Item key={4}>
-      <Link to='/contact-case'>Contact Case</Link>
-    </Menu.Item>
-    <Menu.Item key={5}>
       <Link to='/profile'>Profile</Link>
     </Menu.Item>
     </>:
     <>
+      <Menu.Item key={0}>
+        <Link to='/'>Products Μodification</Link>
+      </Menu.Item>
+      <Menu.Item key={1}>
+        <Link to='/shops-modification'>Shops Μodification</Link>
+      </Menu.Item>
+      <Menu.Item key={2}>
+        <Link to='/statistics'>Statistics</Link>
+      </Menu.Item>
+      <Menu.Item key={3}>
+        <Link to='/leaderboard'>Leaderboard</Link>
+      </Menu.Item>
+      <Menu.Item key={4}>
+        <Link to='/map'>Map</Link>
+      </Menu.Item>
     </>
     :
     <>

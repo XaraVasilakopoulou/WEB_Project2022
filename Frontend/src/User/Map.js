@@ -1,13 +1,35 @@
 import React, {useState, useEffect, } from 'react'
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
 import L from "leaflet";
-import {Col, Input, Space, Switch} from 'antd'
+import {Col, Input, Space, Switch, List, Card, Modal, Button} from 'antd'
 import './Map.css'
 
 const { Search } = Input;
 
 export const Map = ()=> {
-  function LocationMarker() {
+
+  const data = [
+  {
+    title: 'Title 1',
+  },
+  {
+    title: 'Title 2',
+  },
+  {
+    title: 'Title 3',
+  }
+];
+const [isModalOpen, setIsModalOpen] = useState(false);
+
+const showModal = () => {
+  setIsModalOpen(true);
+};
+
+const handleCancel = () => {
+  setIsModalOpen(false);
+};
+
+  function LocationMarker(props) {
     const [position, setPosition] = useState(null);
     const [bbox, setBbox] = useState([]);
 
@@ -15,27 +37,30 @@ export const Map = ()=> {
 
     useEffect(() => {
       map.locate().on("locationfound", function (e) {
+        if(props.user){
         setPosition(e.latlng);
-        map.flyTo(e.latlng, map.getZoom());
-        const radius = e.accuracy;
-        const circle = L.circle(e.latlng, radius);
-        circle.addTo(map);
+        console.log(e.latlng)
+        map.flyTo(e.latlng, map.getZoom());}
+        else{
+          setPosition([38.24664,21.734574]);
+        }
         setBbox(e.bounds.toBBoxString().split(","));
       });
     }, [map]);
 
-    return position === null ? null : (
-      <Marker position={position}>
-        <Popup>
-          You are here. <br />
-          Map bbox: <br />
-          <b>Southwest lng</b>: {bbox[0]} <br />
-          <b>Southwest lat</b>: {bbox[1]} <br />
-          <b>Northeast lng</b>: {bbox[2]} <br />
-          <b>Northeast lat</b>: {bbox[3]}
-        </Popup>
-      </Marker>
-    );
+    return (position === null) ? null : (props.user)?(
+      <Marker 
+        position={position}/>
+    ):(
+      <Marker 
+        position={position} 
+        eventHandlers={{
+          click: (e) => {
+            showModal()
+          }}}/>
+    )
+
+
   }
 return (
   <>
@@ -61,8 +86,43 @@ return (
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <LocationMarker />
+      <LocationMarker user={true}/>
+      <LocationMarker user={false}/>
+      
     </MapContainer>
+    <Button onClick={()=>{showModal()}}>Click</Button>
+      <Modal
+        title="Shop Name Example"
+        footer={null}
+        open={isModalOpen}
+        onCancel={handleCancel}
+      >
+       <br />
+          <List
+              grid={{
+                gutter: 16,
+                xs: 1,
+                sm: 2,
+                md: 4,
+                lg: 4,
+                xl: 6,
+                xxl: 3,
+              }}
+              dataSource={data}
+              renderItem={(item) => (
+                <List.Item>
+                  <Card title={item.title}> 
+                     Cost of product: 
+                    ένδειξη πλήρωσης κριτηρίων icon 5.α.i ή 5.α.ii 
+                    ημερομηνία καταχώρησης,
+                    αριθμός likes/dislikes,  
+                    απόθεμα ναι/όχι
+                    
+                    </Card>
+                </List.Item>
+              )}
+            />
+      </Modal>
     </Col>
   </Space>
 </>

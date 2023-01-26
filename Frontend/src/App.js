@@ -7,6 +7,7 @@ import { Profile } from './User/Profile';
 import { Layout } from 'antd';
 import { Map } from './User/Map';
 import { useState } from 'react';
+import {ShopsMod} from './Admin/ShopsMod'
 import './index.css'
 
 const { Header, Content } = Layout;
@@ -27,16 +28,31 @@ function App() {
       <div className="site-layout-content">
       {(auth)?
       <Routes>
-        {loggedIn ?<><Navigate to="/" /> {setLoggedIn(false)}</> : 
-        <>
-        <Route path='/' element={<Map/>}/>
-        <Route path='/search-interest-points' element={<></>}/>
-        <Route path='/register-visit' element={<></>}/>
-        <Route path='/case-report' element={<></>}/>
-        <Route path='/contact-case' element={<></>}/>
-        <Route path='/profile' element={<Profile email ={email}/>}/>
-        <Route path='/*' element={<NotFound/>}/>
-        </>}
+        {isUser?
+          <>
+            {loggedIn ?<><Navigate to="/" /> {setLoggedIn(false)}</> : 
+            <>
+              <Route path='/' element={<Map/>}/>
+              <Route path='/search-interest-points' element={<></>}/>
+              <Route path='/register-visit' element={<></>}/>
+              <Route path='/case-report' element={<></>}/>
+              <Route path='/profile' element={<Profile email ={email}/>}/>
+              <Route path='/*' element={<NotFound/>}/>
+            </>}
+          </>:
+          <>
+            {loggedIn ?<><Navigate to="/" /> {setLoggedIn(false)}</> : 
+            <>
+              <Route path='/' element={<></>}/>
+              <Route path='/shops-modification' element={<ShopsMod/>}/>
+              <Route path='/statistics' element={<></>}/>
+              <Route path='/leaderboard' element={<></>}/>
+              <Route path='/map' element={<></>}/>
+              <Route path='/*' element={<NotFound/>}/>
+            </>}
+
+          </>}
+        
       </Routes>
       :
       <Routes>
