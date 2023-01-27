@@ -2,6 +2,7 @@ import React, {useState, useEffect, } from 'react'
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
 import L from "leaflet";
 import {Col, Input, Space, Switch, List, Card, Modal, Button} from 'antd'
+import {CheckCircleTwoTone, LikeTwoTone,DislikeTwoTone} from '@ant-design/icons'
 import './Map.css'
 
 const { Search } = Input;
@@ -31,8 +32,6 @@ const handleCancel = () => {
 
   function LocationMarker(props) {
     const [position, setPosition] = useState(null);
-    const [bbox, setBbox] = useState([]);
-
     const map = useMap();
 
     useEffect(() => {
@@ -44,7 +43,6 @@ const handleCancel = () => {
         else{
           setPosition([38.24664,21.734574]);
         }
-        setBbox(e.bounds.toBBoxString().split(","));
       });
     }, [map]);
 
@@ -90,14 +88,13 @@ return (
       <LocationMarker user={false}/>
       
     </MapContainer>
-    <Button onClick={()=>{showModal()}}>Click</Button>
       <Modal
         title="Shop Name Example"
         footer={null}
         open={isModalOpen}
         onCancel={handleCancel}
+        width={1100}
       >
-       <br />
           <List
               grid={{
                 gutter: 16,
@@ -109,19 +106,31 @@ return (
                 xxl: 3,
               }}
               dataSource={data}
+              pagination={{pageSize: '3'}}
               renderItem={(item) => (
-                <List.Item>
-                  <Card title={item.title}> 
-                     Cost of product: 
-                    ένδειξη πλήρωσης κριτηρίων icon 5.α.i ή 5.α.ii 
-                    ημερομηνία καταχώρησης,
-                    αριθμός likes/dislikes,  
-                    απόθεμα ναι/όχι
-                    
+                <List.Item >
+                  <Card title={item.title}>
+                    <>
+                      <p>
+                      Cost of product: {3} <br/>
+                      απόθεμα: ναι/όχι <br/>
+                      ημερομηνία καταχώρησης:<br/>
+                      <LikeTwoTone />5 <DislikeTwoTone twoToneColor='red'/>0<br/>
+                      </p>
+                      <p align='right'>
+                      {(true)?<CheckCircleTwoTone twoToneColor='green'/>:null}
+                      </p>
+                    </>
                     </Card>
                 </List.Item>
               )}
             />
+          {(true)?
+          <Space>
+            <Button type='primary'>Οffer Εvaluation</Button>
+            <Button type='primary'>Add Offer</Button>
+          </Space>:null}
+          
       </Modal>
     </Col>
   </Space>
