@@ -8,6 +8,9 @@ import { Layout } from 'antd';
 import { Map } from './User/Map';
 import { useState } from 'react';
 import {ShopsMod} from './Admin/ShopsMod'
+import { ProductMod } from './Admin/ProductMod';
+import { Leaderboard } from './Admin/Leaderboard';
+import {Statistics} from './Admin/Statistics' 
 import './index.css'
 
 const { Header, Content } = Layout;
@@ -32,7 +35,7 @@ function App() {
           <>
             {loggedIn ?<><Navigate to="/" /> {setLoggedIn(false)}</> : 
             <>
-              <Route path='/' element={<Map/>}/>
+              <Route path='/' element={<Map user={isUser}/>}/>
               <Route path='/search-interest-points' element={<></>}/>
               <Route path='/register-visit' element={<></>}/>
               <Route path='/case-report' element={<></>}/>
@@ -43,11 +46,11 @@ function App() {
           <>
             {loggedIn ?<><Navigate to="/" /> {setLoggedIn(false)}</> : 
             <>
-              <Route path='/' element={<></>}/>
+              <Route path='/' element={<ProductMod/>}/>
               <Route path='/shops-modification' element={<ShopsMod/>}/>
-              <Route path='/statistics' element={<></>}/>
-              <Route path='/leaderboard' element={<></>}/>
-              <Route path='/map' element={<></>}/>
+              <Route path='/statistics' element={<Statistics/>}/>
+              <Route path='/leaderboard' element={<Leaderboard/>}/>
+              <Route path='/map' element={<Map user={isUser}/>}/>
               <Route path='/*' element={<NotFound/>}/>
             </>}
 

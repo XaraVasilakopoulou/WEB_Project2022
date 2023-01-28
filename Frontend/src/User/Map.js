@@ -7,7 +7,7 @@ import './Map.css'
 
 const { Search } = Input;
 
-export const Map = ()=> {
+export const Map = (props)=> {
 
   const data = [
   {
@@ -120,6 +120,7 @@ return (
                       <p align='right'>
                       {(true)?<CheckCircleTwoTone twoToneColor='green'/>:null}
                       </p>
+                      {!(props.user)?<Button type='danger' size='small'>Delete Product</Button>:<></>}
                     </>
                     </Card>
                 </List.Item>
