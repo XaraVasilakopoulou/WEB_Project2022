@@ -15,7 +15,22 @@ export const ShopsMod = () => {
   const [fileShops, setFileShops] = useState()
 
   const Submit = (radioButton) => {
-    console.log(radioButton)
+      fetch("http://localhost:9000/adminShopsMod",{
+        method: "POST",
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json"
+        },
+        body: null
+        }).then((response) => response.json(response))
+        .then((data) => {
+          console.log(data)
+          message.success("Successful Update of account")}
+        )
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+        
   }
  
   return (
@@ -70,10 +85,10 @@ export const ShopsMod = () => {
         <Form.Item style={{marginLeft: 265}}>
             <Button type='primary' onClick={()=>{
               fetch("http://localhost:9000/adminShops",{
-                method: 'POST',
+                method: "POST",
                 headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json'
+                  "Accept": "application/json",
+                  "Content-Type": "application/json"
                 },
                 body: JSON.stringify(fileShops)
                 }).then((response) => response.json(response))

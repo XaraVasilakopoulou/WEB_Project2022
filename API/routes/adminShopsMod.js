@@ -5,7 +5,7 @@ var router = express.Router();
 
 router.post('/', (req, res) => {
     if (err) throw err;
-    
+    console.log(req.body);
 })
 
 module.exports = router;

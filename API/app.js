@@ -13,6 +13,7 @@ var userLogin = require('./routes/userLogIn')
 var userSignUp = require('./routes/userSignUp')
 var profile = require('./routes/profileChanges')
 var adminShops = require('./routes/adminShops')
+var adminShopsMod = require('./routes/adminShopsMod')
 
 
 
@@ -34,6 +35,7 @@ app.use('/userLogin', userLogin);
 app.use('/userSignUp', userSignUp);
 app.use('/profile', profile);
 app.use('/adminShops', adminShops);
+app.use('/adminShopsMod', adminShopsMod);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
