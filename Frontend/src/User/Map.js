@@ -9,6 +9,8 @@ const { Search } = Input;
 
 export const Map = (props)=> {
 
+  const [shops, setShops] = useState(null);
+
   const data = [
   {
     title: 'Title 1',
@@ -30,6 +32,17 @@ const handleCancel = () => {
   setIsModalOpen(false);
 };
 
+fetch("http://localhost:9000/users",{
+        method: 'GET'
+      }).then((response) => response.json(response))
+      .then((data) => {
+        setShops = data[0].coordinates
+        
+      }
+      )
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   function LocationMarker(props) {
     const [position, setPosition] = useState(null);
     const map = useMap();
@@ -41,7 +54,8 @@ const handleCancel = () => {
         console.log(e.latlng)
         map.flyTo(e.latlng, map.getZoom());}
         else{
-          setPosition([38.24664,21.734574]);
+          console.log(shops)
+          setPosition([shops.x,shops.y]);
         }
       });
     }, [map]);
