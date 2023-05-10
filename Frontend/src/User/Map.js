@@ -4,12 +4,15 @@ import L from "leaflet";
 import {Col, Input, Space, Switch, List, Card, Modal, Button} from 'antd'
 import {CheckCircleTwoTone, LikeTwoTone,DislikeTwoTone} from '@ant-design/icons'
 import './Map.css'
+import mockdataShops from './mockdataShops.json'
 
 const { Search } = Input;
 
 export const Map = (props)=> {
 
-  const [shops, setShops] = useState(null);
+  const [shops, setShops] = useState(mockdataShops);
+
+  console.log(shops)
 
   const data = [
   {
@@ -32,7 +35,7 @@ const handleCancel = () => {
   setIsModalOpen(false);
 };
 
-fetch("http://localhost:9000/users",{
+/*fetch("http://localhost:9000/users",{
         method: 'GET'
       }).then((response) => response.json(response))
       .then((data) => {
@@ -42,7 +45,7 @@ fetch("http://localhost:9000/users",{
       )
       .catch((error) => {
         console.error('Error:', error);
-      });
+      });*/
   function LocationMarker(props) {
     const [position, setPosition] = useState(null);
     const map = useMap();
@@ -51,11 +54,9 @@ fetch("http://localhost:9000/users",{
       map.locate().on("locationfound", function (e) {
         if(props.user){
         setPosition(e.latlng);
-        console.log(e.latlng)
         map.flyTo(e.latlng, map.getZoom());}
         else{
-          console.log(shops)
-          setPosition([shops.x,shops.y]);
+          setPosition([shops[props.i].geometry.coordinates[1],shops[props.i].geometry.coordinates[0]]); 
         }
       });
     }, [map]);
@@ -63,13 +64,14 @@ fetch("http://localhost:9000/users",{
     return (position === null) ? null : (props.user)?(
       <Marker 
         position={position}/>
-    ):(
+    ):(<>
       <Marker 
         position={position} 
         eventHandlers={{
           click: (e) => {
             showModal()
           }}}/>
+          </>
     )
 
 
@@ -98,12 +100,12 @@ return (
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <LocationMarker user={true}/>
-      <LocationMarker user={false}/>
+      <LocationMarker user={true} i={null}/>
+      {shops.map((val,index)=><LocationMarker user={false} i={index}/>)}
       
     </MapContainer>
       <Modal
-        title="Shop Name Example"
+        title={shops[0].properties.brand}
         footer={null}
         open={isModalOpen}
         onCancel={handleCancel}
