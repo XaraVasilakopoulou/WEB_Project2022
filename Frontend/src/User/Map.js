@@ -54,6 +54,7 @@ const handleCancel = () => {
       map.locate().on("locationfound", function (e) {
         if(props.user){
         setPosition(e.latlng);
+        console.log(e)
         map.flyTo(e.latlng, map.getZoom());}
         else{
           setPosition([shops[props.i].geometry.coordinates[1],shops[props.i].geometry.coordinates[0]]); 

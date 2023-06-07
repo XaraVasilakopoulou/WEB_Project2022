@@ -10,7 +10,8 @@ import { useState } from 'react';
 import {ShopsMod} from './Admin/ShopsMod'
 import { ProductMod } from './Admin/ProductMod';
 import { Leaderboard } from './Admin/Leaderboard';
-import {Statistics} from './Admin/Statistics' 
+import {Statistics} from './Admin/Statistics'
+import { Offer } from './User/Offer'; 
 import './index.css'
 
 const { Header, Content } = Layout;
@@ -36,9 +37,7 @@ function App() {
             {loggedIn ?<><Navigate to="/" /> {setLoggedIn(false)}</> : 
             <>
               <Route path='/' element={<Map user={isUser}/>}/>
-              <Route path='/search-interest-points' element={<></>}/>
-              <Route path='/register-visit' element={<></>}/>
-              <Route path='/case-report' element={<></>}/>
+              <Route path='/submit-offer' element={<Offer/>}/>
               <Route path='/profile' element={<Profile email ={email}/>}/>
               <Route path='/*' element={<NotFound/>}/>
             </>}

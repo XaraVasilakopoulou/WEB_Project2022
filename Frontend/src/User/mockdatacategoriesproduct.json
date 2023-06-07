@@ -1,0 +1,61 @@
+{
+  "fetch_date": 1669214001,
+  "products": [
+    {
+      "id": "d41744460283406a86f8e4bd5010a66d",
+      "name": "Καθαριότητα",
+      "subcategories": [
+        {
+          "name": "Είδη γενικού καθαρισμού",
+          "uuid": "3be81b50494d4b5495d5fea3081759a6"
+        },
+        {
+          "name": "Χαρτικά",
+          "uuid": "034941f08ca34f7baaf5932427d7e635"
+        }
+      ]
+    },
+    {
+      "id": "a8ac6be68b53443bbd93b229e2f9cd34",
+      "name": "Ποτά - Αναψυκτικά",
+      "subcategories": [
+        {
+          "name": "Μπύρες",
+          "uuid": "329bdd842f9f41688a0aa017b74ffde4"
+        },
+        {
+          "name": "Εμφιαλωμένα νερά",
+          "uuid": "bc4d21162fbd4663b0e60aa9bd65115e"
+        }
+      ]
+    },
+    {
+      "id": "ee0022e7b1b34eb2b834ea334cda52e7",
+      "name": "Τρόφιμα",
+      "subcategories": [
+        {
+          "name": "Αλεύρι - Σιμιγδάλι",
+          "uuid": "c761cd8b18a246eb81fb21858ac10093"
+        },
+        {
+          "name": "Αλλαντικά",
+          "uuid": "be04eae3ca484928a86984d73bf3cc3a"
+        }
+      ]
+    },
+    {
+      "id": "662418cbd02e435280148dbb8892782a",
+      "name": "Για κατοικίδια",
+      "subcategories": [
+        {
+          "name": "Pet shop/Τροφή γάτας",
+          "uuid": "926262c303fe402a8542a5d5cf3ac7eb"
+        },
+        {
+          "name": "Pet shop/Τροφή σκύλου",
+          "uuid": "0c6e42d52765495dbbd06c189a4fc80f"
+        }
+      ]
+    }
+  ]
+}

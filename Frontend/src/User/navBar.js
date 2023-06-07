@@ -28,15 +28,9 @@ export const UserNavBar = (props) => {
       <Link to='/'>Home</Link>
     </Menu.Item>
     <Menu.Item key={1}>
-      <Link to='/search-interest-points'>Interest Points</Link>
+      <Link to='/submit-offer'>Offer Submition</Link>
     </Menu.Item>
     <Menu.Item key={2}>
-      <Link to='/register-visit'>Register Visit</Link>
-    </Menu.Item>
-    <Menu.Item key={3}>
-      <Link to='/case-report'>Case Report</Link>
-    </Menu.Item>
-    <Menu.Item key={4}>
       <Link to='/profile'>Profile</Link>
     </Menu.Item>
     </>:

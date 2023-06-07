@@ -12,25 +12,38 @@ import {
 export const ShopsMod = () => {
    
   const [radioButton,setRadioButton] = useState('Upload')
-  const [fileShops, setFileShops] = useState()
+  const [fileShops, setFileShops] = useState({some: 'hi'})
+  const [shopID, setShopId] = useState(null)
+  const [shopName, setShopName] = useState(null)
+  const [shopCoorX, setShopCoorX] = useState(null)
+  const [shopCoorY, setShopCoorY] = useState(null)
+  
 
   const Submit = (radioButton) => {
+    
+    const Shop = {
+      shopID: shopID, 
+      shopName: shopName,
+      shopCoorX: shopCoorX,
+      shopCoorY: shopCoorY,
+      radioButton: radioButton
+    }
       fetch("http://localhost:9000/adminShopsMod",{
         method: "POST",
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json"
         },
-        body: null
+        body: JSON.stringify(Shop)
         }).then((response) => response.json(response))
         .then((data) => {
-          console.log(data)
-          message.success("Successful Update of account")}
+          message.success("Successful Update of shops")}
         )
         .catch((error) => {
           console.error('Error:', error);
         });
-        
+      
+      
   }
  
   return (
@@ -41,19 +54,22 @@ export const ShopsMod = () => {
         layout="horizontal"
       >
         <Form.Item label="Action">
-          <Radio.Group defaultValue='Upload' onChange={(e)=>{setRadioButton(e.target.value)}}>
+          <Radio.Group defaultValue='Upload' onChange={(e)=>{setRadioButton(e.target.value); console.log(e.target.value)}}>
             <Radio value="Upload"> Upload New</Radio>
             <Radio value="Update"> Update </Radio>
           </Radio.Group>
         </Form.Item>
         <Form.Item label="Shop Id">
-          <Input />
+          <Input onChange={(e)=>{setShopId(e.target.value)}} />
         </Form.Item>
         <Form.Item label="Shop Name">
-          <Input />
+          <Input onChange={(e)=>{setShopName(e.target.value)}}/>
         </Form.Item>
-        <Form.Item label="Shop Coordinates">
-          <Input />
+        <Form.Item label="Shop Coordinates X">
+          <Input onChange={(e)=>{setShopCoorX(e.target.value)}}/>
+        </Form.Item>
+        <Form.Item label="Shop Coordinates Y">
+          <Input onChange={(e)=>{setShopCoorY(e.target.value)}}/>
         </Form.Item>
         <Form.Item style={{marginLeft: 265}}>
             <Button type='primary' onClick={()=>{Submit(radioButton)}}>Submit</Button>
@@ -69,7 +85,8 @@ export const ShopsMod = () => {
               const reader = new FileReader();
 
               reader.onload = e => {
-                  setFileShops(e.target.result)
+                  setFileShops(JSON.parse(e.target.result))
+                  console.log(fileShops[1])                  
               };
               reader.readAsText(file);
 
@@ -84,17 +101,25 @@ export const ShopsMod = () => {
         </Form.Item>
         <Form.Item style={{marginLeft: 265}}>
             <Button type='primary' onClick={()=>{
+              
+              const fileShop = {
+                shopID: 'gggg',
+                shopName: 'hugui',
+                shopCoorX: '40',
+                shopCoorY: '55',
+                file: fileShops,
+                delete: false
+              }
               fetch("http://localhost:9000/adminShops",{
                 method: "POST",
                 headers: {
                   "Accept": "application/json",
                   "Content-Type": "application/json"
                 },
-                body: JSON.stringify(fileShops)
+                body: JSON.stringify(fileShop)
                 }).then((response) => response.json(response))
                 .then((data) => {
-                  console.log(data)
-                  message.success("Successful Update of account")}
+                  message.success("Successful Upload of shops")}
                 )
                 .catch((error) => {
                   console.error('Error:', error);
@@ -102,6 +127,32 @@ export const ShopsMod = () => {
                 }}>
                 Submit File
             </Button>
+        </Form.Item>
+        <Form.Item style={{marginLeft: 1050}}>
+          <Button type="danger"
+          onClick={()=>{
+            const fileShop = {
+              file: fileShops,
+              delete: true
+            }
+            console.log(fileShop)
+            fetch("http://localhost:9000/adminShops",{
+              method: "POST",
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(fileShop)
+              }).then((response) => response.json(response))
+              .then((data) => {
+                message.success("Successful delete of all the shops ")}
+              )
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+              }}
+          >
+            Delete all shops</Button>
         </Form.Item>
       </Form>
     </>
