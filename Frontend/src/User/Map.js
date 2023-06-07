@@ -12,7 +12,6 @@ export const Map = (props)=> {
 
   const [shops, setShops] = useState(mockdataShops);
 
-  console.log(shops)
 
   const data = [
   {
@@ -35,17 +34,17 @@ const handleCancel = () => {
   setIsModalOpen(false);
 };
 
-/*fetch("http://localhost:9000/users",{
+fetch("http://localhost:9000/shops",{
         method: 'GET'
       }).then((response) => response.json(response))
       .then((data) => {
-        setShops = data[0].coordinates
-        
+        setShops(data)
+        console.log(shops)
       }
       )
       .catch((error) => {
         console.error('Error:', error);
-      });*/
+      });
   function LocationMarker(props) {
     const [position, setPosition] = useState(null);
     const map = useMap();
@@ -57,7 +56,7 @@ const handleCancel = () => {
         console.log(e)
         map.flyTo(e.latlng, map.getZoom());}
         else{
-          setPosition([shops[props.i].geometry.coordinates[1],shops[props.i].geometry.coordinates[0]]); 
+          //setPosition([shops[props.i].geometry.coordinates[1],shops[props.i].geometry.coordinates[0]]); 
         }
       });
     }, [map]);

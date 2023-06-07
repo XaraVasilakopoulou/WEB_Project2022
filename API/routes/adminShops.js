@@ -15,16 +15,27 @@ class Point {
 
 router.post('/', (req, res) => {
     let stmtUpload = `INSERT INTO supermarkets (id, name, coordinates) VALUES ?`;
-    let shopUpload = []
-    for(const i=0;i<2;i++){
+    
+    if(req.body.delete===false){
+      let shopUpload = []
+    for(let i=0;i<Object.keys(req.body.file).length;i++){
       shopUpload.push([req.body.file[i].id, req.body.file[i].properties.name, new Point(req.body.file[i].geometry.coordinates[0], req.body.file[i].geometry.coordinates[1])])
     }
+
     connection.query(stmtUpload, [shopUpload], function (err, result, fields) {
         if (err) throw err;
         console.log("1 record inserted");
         console.log(result);
         res.json(result);
       });
+    }
+
+    if(req.body.delete===true){
+      connection.query(`DELETE FROM supermarkets`, function (err, result, fields) {
+        if (err) throw err;
+        console.log("all deleted");
+      });
+    }
 
  
 

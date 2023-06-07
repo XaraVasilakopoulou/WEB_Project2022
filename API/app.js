@@ -8,7 +8,7 @@ var app = express();
 
 // routes
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var shops = require('./routes/shops');
 var userLogin = require('./routes/userLogIn')
 var userSignUp = require('./routes/userSignUp')
 var profile = require('./routes/profileChanges')
@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/shops', shops);
 app.use('/userLogin', userLogin);
 app.use('/userSignUp', userSignUp);
 app.use('/profile', profile);

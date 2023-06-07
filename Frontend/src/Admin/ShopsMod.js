@@ -103,13 +103,10 @@ export const ShopsMod = () => {
             <Button type='primary' onClick={()=>{
               
               const fileShop = {
-                shopID: 'gggg',
-                shopName: 'hugui',
-                shopCoorX: '40',
-                shopCoorY: '55',
                 file: fileShops,
                 delete: false
               }
+
               fetch("http://localhost:9000/adminShops",{
                 method: "POST",
                 headers: {
@@ -135,7 +132,6 @@ export const ShopsMod = () => {
               file: fileShops,
               delete: true
             }
-            console.log(fileShop)
             fetch("http://localhost:9000/adminShops",{
               method: "POST",
               headers: {
