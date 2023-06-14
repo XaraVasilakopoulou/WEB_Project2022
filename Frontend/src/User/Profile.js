@@ -17,7 +17,7 @@ const col = [
   
 ]
 
-export const Profile = () => {
+export const Profile = (props) => {
   const [username,setUsername] = useState();
   const [password, setPassword] = useState();
   const [isUsernameChanged,setIsUsernamneChanged] = useState(false);
@@ -29,10 +29,11 @@ export const Profile = () => {
       username: username, 
       password: password, 
       isUsernameChanged: isUsernameChanged, 
-      isPasswordChanged: isPasswordChanged
+      isPasswordChanged: isPasswordChanged,
+      email: props.email
     }
 
-    fetch("http://localhost:9000/profile",{
+    fetch("http://localhost:9000/profileEdit",{
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -41,7 +42,6 @@ export const Profile = () => {
         body: JSON.stringify(postData)
       }).then((response) => response.json(response))
       .then((data) => {
-        console.log(data)
         message.success("Successful Update of account")}
       )
       .catch((error) => {
@@ -56,10 +56,10 @@ export const Profile = () => {
         <h2>Change Profile Data</h2>
           <Form>
           <Form.Item >
-              <Input placeholder='Username' onChange={(val)=>{ setUsername(val.target.value); setIsUsernamneChanged(true)}}/>
+              <Input placeholder='Username' onChange={(val)=>{ if(val!==''){setUsername(val.target.value); setIsUsernamneChanged(true)} else{setUsername(val.target.value); setIsUsernamneChanged(false)}}}/>
           </Form.Item>
           <Form.Item >
-              <Input placeholder='Password' type='password' onChange={(val)=>{setPassword(val.target.value); setIsPasswordChanged(true)}}/>
+              <Input placeholder='Password' type='password' onChange={(val)=>{if(val!==''){setPassword(val.target.value); setIsPasswordChanged(true)} else{setPassword(val.target.value); setIsPasswordChanged(false)}}}/>
           </Form.Item>
           <Form.Item >
               <Button type="primary" htmlType="submit" onClick={()=>{onFinish()}}>

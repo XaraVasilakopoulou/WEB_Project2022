@@ -1,18 +1,34 @@
-import React, {useState, useEffect, } from 'react'
+import React, {useState, useEffect, useRef } from 'react'
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
 import L from "leaflet";
 import {Col, Input, Space, Switch, List, Card, Modal, Button} from 'antd'
 import {CheckCircleTwoTone, LikeTwoTone,DislikeTwoTone} from '@ant-design/icons'
 import './Map.css'
-import mockdataShops from './mockdataShops.json'
+import shopsmock from './mockdataShops.json'
+import icon from './user.png'
+var myIcon = L.icon({
+  iconUrl: icon,
+  iconSize: [35, 40]
+});
 
 const { Search } = Input;
-
+/*fetch("http://localhost:9000/shops",{
+    method: 'GET'
+  }).then((response) => response.json(response))
+  .then((data) => {
+    setShops(data)
+    
+  }
+  )
+  .catch((error) => {
+    console.error('Error:', error);
+  });*/
 export const Map = (props)=> {
 
-  const [shops, setShops] = useState(mockdataShops);
-
-
+  const [shops, setShops] = useState(shopsmock);
+  const [shopSearch, setShopSearch] = useState('');
+  const [modalTitle, setModalTitle] = useState(null)
+  const [modalData, setModalData] = useState(null)
   const data = [
   {
     title: 'Title 1',
@@ -26,50 +42,49 @@ export const Map = (props)=> {
 ];
 const [isModalOpen, setIsModalOpen] = useState(false);
 
-const showModal = () => {
+const showModal = (props) => {
   setIsModalOpen(true);
+  setModalTitle(props.name)
+  setModalData(props)
 };
 
 const handleCancel = () => {
   setIsModalOpen(false);
 };
 
-fetch("http://localhost:9000/shops",{
-        method: 'GET'
-      }).then((response) => response.json(response))
-      .then((data) => {
-        setShops(data)
-        console.log(shops)
-      }
-      )
-      .catch((error) => {
-        console.error('Error:', error);
-      });
+
+
+
   function LocationMarker(props) {
     const [position, setPosition] = useState(null);
     const map = useMap();
 
     useEffect(() => {
+
       map.locate().on("locationfound", function (e) {
         if(props.user){
         setPosition(e.latlng);
-        console.log(e)
-        map.flyTo(e.latlng, map.getZoom());}
+        map.flyTo(e.latlng, map.getZoom());
+      }
         else{
-          //setPosition([shops[props.i].geometry.coordinates[1],shops[props.i].geometry.coordinates[0]]); 
+          setPosition([props.val.coordinates.y,props.val.coordinates.x]); 
+          
         }
       });
     }, [map]);
 
+    
+
     return (position === null) ? null : (props.user)?(
       <Marker 
+        icon={myIcon}
         position={position}/>
     ):(<>
       <Marker 
         position={position} 
         eventHandlers={{
           click: (e) => {
-            showModal()
+            showModal(props.val)
           }}}/>
           </>
     )
@@ -87,7 +102,7 @@ return (
           allowClear
           enterButton="Search"
           size="large"
-          
+          onChange={(val)=>{setShopSearch(val.target.value); console.log(shops)}}
         />
         <Switch checkedChildren="Shops" unCheckedChildren="Products" defaultChecked />
         </Space>
@@ -100,12 +115,12 @@ return (
         attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <LocationMarker user={true} i={null}/>
-      {shops.map((val,index)=><LocationMarker user={false} i={index}/>)}
+      <LocationMarker user={true} i={null} val={null}/>
+      {shops&&(shops.map((val,index)=><>{(val.name.includes(shopSearch))?<LocationMarker user={false} i={index} val={val}/>:null}</>))}
       
     </MapContainer>
       <Modal
-        title={shops[0].properties.brand}
+        title={modalTitle}
         footer={null}
         open={isModalOpen}
         onCancel={handleCancel}
