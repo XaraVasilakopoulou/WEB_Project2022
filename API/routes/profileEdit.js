@@ -16,7 +16,6 @@ router.post('/', (req, res) => {
       if (err) throw err;
       console.log("1 record inserted");
       console.log(result);
-      res.json(result);
     });
   }
 
@@ -28,9 +27,10 @@ router.post('/', (req, res) => {
     if (err) throw err;
     console.log("1 record inserted");
     console.log(result);
-    res.json(result);
   });
+  
 }
+  res.json('all done');
 })
 
 module.exports = router;

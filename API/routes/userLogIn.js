@@ -11,10 +11,7 @@ router.post('/', (req, res) => {
     connection.query(stmt, user, function (err, result) {
       if (err) throw err;
       if(result){
-        res.json({login: true, user: result[0].property, email: result[0].email});
-      }
-      else{
-        res.json({login: false});
+        res.json(result);
       }
     });
 })

@@ -28,15 +28,18 @@ export const SignIn = (props) => {
     body: JSON.stringify(singInData)
   }).then((response) => response.json())
   .then((data) => {
-    if(data.login){
-      if(data.user === 'user'){props.onLog(data.login,true,data.email);}
+    if(data.length!==0){
+      if(data[0].property === 'user'){props.onLog(true,true,data[0].email);}
       else{
-        props.onLog(data.login,false,data.email);
+        props.onLog(true,false,data[0].email);
       } }
     else{
-      props.onLog(data.login,null);
       message.error('Wrong Email or Password')
+      props.onLog(false,null);
+      
+      
     }
+    
   })
   .catch((error) => {
     console.error('Error:', error);

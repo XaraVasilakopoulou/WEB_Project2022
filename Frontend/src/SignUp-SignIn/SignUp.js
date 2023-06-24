@@ -38,11 +38,10 @@ export const SignUp = () => {
         body: JSON.stringify(signUpData)
       }).then((response) => response.json())
       .then((data) => {
-        console.log(data)
         message.success("Successful create of the account")}
       )
       .catch((error) => {
-        console.error('Error:', error);
+        message.error("Something went wrong!")
       });
     }
   };

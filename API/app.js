@@ -11,13 +11,14 @@ var indexRouter = require('./routes/index');
 var shops = require('./routes/shops');
 var userLogin = require('./routes/userLogIn')
 var userSignUp = require('./routes/userSignUp')
-var profile = require('./routes/profileChanges')
+var profile = require('./routes/profileGetData')
 var adminShops = require('./routes/adminShops')
 var adminShopsMod = require('./routes/adminShopsMod')
 var profileEdit = require('./routes/profileEdit')
 var adminProducts = require('./routes/adminProducts')
-
-
+var categories = require('./routes/categories')
+var likes = require('./routes/likes')
+var Leadboard = require('./routes/Leaderboard')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -34,11 +35,14 @@ app.use('/', indexRouter);
 app.use('/shops', shops);
 app.use('/userLogin', userLogin);
 app.use('/userSignUp', userSignUp);
-app.use('/profile', profile);
+app.use('/profileGetData', profile);
 app.use('/adminShops', adminShops);
 app.use('/adminShopsMod', adminShopsMod);
 app.use('/profileEdit', profileEdit);
 app.use('/adminProducts', adminProducts);
+app.use('/categories', categories);
+app.use('/likes', likes);
+app.use('/Leadboard',Leadboard)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
