@@ -43,7 +43,9 @@ export const ProductMod = () => {
             <Button type='primary' onClick={()=>{
               
               const fileShop = {
-                file: fileShops.products
+                file: fileShops.products,
+                delete:false,
+                product:false
               }
 
               fetch("http://localhost:9000/adminProducts",{
@@ -65,7 +67,29 @@ export const ProductMod = () => {
             </Button>
         </Form.Item>
         <Form.Item  >
-            <Button type='danger' style={{marginLeft: 1400}}>
+            <Button type='danger' style={{marginLeft: 1400}} onClick={()=>{
+              
+              const fileShop = {
+                file: fileShops.products,
+                delete:true,
+                product:false
+              }
+
+              fetch("http://localhost:9000/adminProducts",{
+                method: "POST",
+                headers: {
+                  "Accept": "application/json",
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(fileShop)
+                }).then((response) => response.json(response))
+                .then((data) => {
+                  message.success("Successful Upload of shops")}
+                )
+                .catch((error) => {
+                  console.error('Error:', error);
+                });
+                }}>
                 Delete all products
             </Button>
         </Form.Item>
@@ -93,14 +117,55 @@ export const ProductMod = () => {
         </Form.Item>
         <Form.Item style={{marginLeft: 265}}>
             <Button type='primary' onClick={()=>{
-              
+              const fileShop = {
+                file: fileOffer.products,
+                delete: false,
+                product: true
+              }
+
+              fetch("http://localhost:9000/adminProducts",{
+                method: "POST",
+                headers: {
+                  "Accept": "application/json",
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(fileShop)
+                }).then((response) => response.json(response))
+                .then((data) => {
+                  message.success("Successful Upload of shops")}
+                )
+                .catch((error) => {
+                  console.error('Error:', error);
+                });
               
                 }}>
                 Submit File
             </Button>
         </Form.Item>
         <Form.Item  >
-            <Button type='danger' style={{marginLeft: 1400}}>
+            <Button type='danger' style={{marginLeft: 1400}} onClick={()=>{
+              
+              const fileShop = {
+                file: fileShops.products,
+                delete:true,
+                product:true
+              }
+
+              fetch("http://localhost:9000/adminProducts",{
+                method: "POST",
+                headers: {
+                  "Accept": "application/json",
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify(fileShop)
+                }).then((response) => response.json(response))
+                .then((data) => {
+                  message.success("Successful Upload of shops")}
+                )
+                .catch((error) => {
+                  console.error('Error:', error);
+                });
+                }}>
                 Delete all products
             </Button>
         </Form.Item>
