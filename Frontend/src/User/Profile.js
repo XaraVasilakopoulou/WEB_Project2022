@@ -26,7 +26,7 @@ export const Profile = (props) => {
   const [tokenData, setTokenData] = useState(null)
   const [tableData, setTableData] = useState(null)
 
-
+  if(tableData === null){
   fetch("http://localhost:9000/profileGetData",{
     method: 'POST',
     headers: {
@@ -41,7 +41,6 @@ export const Profile = (props) => {
   )
   .catch((error) => {
   })
-
   fetch("http://localhost:9000/likes",{
     method: 'POST',
     headers: {
@@ -56,7 +55,7 @@ export const Profile = (props) => {
   )
   .catch((error) => {
   })
-
+  }
   const onFinish = () => {
 
     var passValues = true;

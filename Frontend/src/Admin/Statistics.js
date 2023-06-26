@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Line } from '@ant-design/plots';
+import { DatePicker, Space } from 'antd';
 
 export const Statistics = () =>{
 
@@ -24,14 +25,17 @@ export const Statistics = () =>{
             xField: 'Date',
             yField: 'scales',
             xAxis: {
-            // type: 'timeCat',
-            tickCount: 5,
+                type: 'timeCat',
+            tickCount: 12,
             },
         };
 
     return(
         <>
+        <Space size='large' direction='vertical'>
+            <DatePicker onChange={null} picker="month" />
             <h1>Offers Daily Diagram</h1>
+            </Space>
            <Line {...config} />
         </>
     );

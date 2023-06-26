@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TreeSelect } from 'antd';
 
 
-export const SearchBar = () => {
+export const SearchBar = (props) => {
   const [value, setValue] = useState();
 
   const onChange = (newValue) => {
@@ -293,7 +293,7 @@ export const SearchBar = () => {
 
   return (
     <>
-    {//categories&&
+    {
     <TreeSelect
       showSearch
       style={{ width: '300%' }}
@@ -302,7 +302,7 @@ export const SearchBar = () => {
       placeholder="Please select"
       allowClear
       treeDefaultExpandAll
-      onChange={onChange}
+      onChange={(val)=>{props.onChange(val)}}
       treeData={treeData}
     />}
     </>

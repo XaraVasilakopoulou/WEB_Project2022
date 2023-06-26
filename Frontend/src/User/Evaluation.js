@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { SearchBar } from './SearchbarOffer';
 import { Slider, Form, Col, DatePicker, Row, Space, Button, Select, message } from 'antd';
 
-export const Offer = () => {
+export const Evaluation = () => {
     const [markets, setMarkets] = useState(null)
     const [marketName, setMarketName] = useState(null)
     const [product, setProducts] = useState(null);

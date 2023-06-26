@@ -5,7 +5,7 @@ export const Leaderboard = () =>{
 
   const [tableData, setTableData] = useState(null)
 
-
+  if(tableData === null){
   fetch("http://localhost:9000/Leadboard",{
     method: 'GET',
     headers: {
@@ -19,7 +19,7 @@ export const Leaderboard = () =>{
   )
   .catch((error) => {
   })
-
+  }
     const col = [
          {
             title: 'Username',

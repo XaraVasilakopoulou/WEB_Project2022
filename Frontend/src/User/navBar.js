@@ -6,7 +6,6 @@ import './navBar.css'
 export const UserNavBar = (props) => {
   return(
   <>
-    <div className="logo" /> 
 
     {(props.auth)?
       <div className="logOut" > 

@@ -4,15 +4,27 @@ import L from "leaflet";
 import {Col, Input, Space, Switch, List, Card, Modal, Button} from 'antd'
 import {CheckCircleTwoTone, LikeTwoTone,DislikeTwoTone} from '@ant-design/icons'
 import './Map.css'
-import shopsmock from './mockdataShops.json'
 import icon from './user.png'
+import moment from 'moment'
+import { Evaluation } from './Evaluation';
+
 var myIcon = L.icon({
   iconUrl: icon,
   iconSize: [35, 40]
 });
 
 const { Search } = Input;
-/*fetch("http://localhost:9000/shops",{
+
+export const Map = (props)=> {
+
+  const [shops, setShops] = useState(null);
+  const [shopSearch, setShopSearch] = useState('');
+  const [modalTitle, setModalTitle] = useState(null)
+  const [products, setProducts] = useState(null)
+  const [modalData, setModalData] = useState(null)
+
+  if(shops === null){
+    fetch("http://localhost:9000/shops",{
     method: 'GET'
   }).then((response) => response.json(response))
   .then((data) => {
@@ -22,13 +34,22 @@ const { Search } = Input;
   )
   .catch((error) => {
     console.error('Error:', error);
-  });*/
-export const Map = (props)=> {
+  });
 
-  const [shops, setShops] = useState(shopsmock);
-  const [shopSearch, setShopSearch] = useState('');
-  const [modalTitle, setModalTitle] = useState(null)
-  const [modalData, setModalData] = useState(null)
+  fetch("http://localhost:9000/products",{
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  }).then((response) => response.json(response))
+  .then((data) => {
+    setProducts(data)
+  }
+  )
+  .catch((error) => {
+  })
+  }
   const data = [
   {
     title: 'Title 1',
@@ -45,7 +66,7 @@ const [isModalOpen, setIsModalOpen] = useState(false);
 const showModal = (props) => {
   setIsModalOpen(true);
   setModalTitle(props.name)
-  setModalData(props)
+  setModalData(products.filter(products => products.name_supermarket === props.name))
 };
 
 const handleCancel = () => {
@@ -136,22 +157,22 @@ return (
                 xl: 6,
                 xxl: 3,
               }}
-              dataSource={data}
+              dataSource={modalData}
               pagination={{pageSize: '3'}}
               renderItem={(item) => (
                 <List.Item >
-                  <Card title={item.title}>
+                  <Card title={item.name_product}>
                     <>
                       <p>
-                      Cost of product: {3} <br/>
-                      απόθεμα: ναι/όχι <br/>
-                      ημερομηνία καταχώρησης:<br/>
-                      <LikeTwoTone />5 <DislikeTwoTone twoToneColor='red'/>0<br/>
+                      Cost of product: {item.price} <br/>
+                      απόθεμα: {(item.stock===1)?<>ναι</>:<>όχι</>} <br/>
+                      ημερομηνία καταχώρησης:{moment(item.date).utc().format('YYYY-MM-DD')}<br/>
+                      <LikeTwoTone />{item.likes} <DislikeTwoTone twoToneColor='red'/>{item.dislikes}<br/>
                       </p>
                       <p align='right'>
                       {(true)?<CheckCircleTwoTone twoToneColor='green'/>:null}
                       </p>
-                      {!(props.user)?<Button type='danger' size='small'>Delete Product</Button>:<></>}
+              {!(props.user)?<Button type='danger' size='small'>Delete Product</Button>:<></>}
                     </>
                     </Card>
                 </List.Item>
@@ -159,8 +180,8 @@ return (
             />
           {(true)?
           <Space>
-            <Button type='primary'>Οffer Εvaluation</Button>
-            <Button type='primary'>Add Offer</Button>
+            <Button type='primary' onClick={()=>{}}>Οffer Εvaluation</Button>
+            <Button type='primary' onClick={()=>{window.location.replace('http://localhost:3000/submit-offer');}}>Add Offer</Button>
           </Space>:null}
           
       </Modal>
